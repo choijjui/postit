@@ -47,6 +47,7 @@ html, body {
     padding: 0;
     height: 100%;
     resize: none;
+    font-size: 12px;
 }
 
 .post-container .content textarea:focus {
