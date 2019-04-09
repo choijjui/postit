@@ -16,8 +16,8 @@ function registerEvent() {
         event.preventDefault();
         let contextMenu = $(".context-menu");
         $(contextMenu).css({
-            top: event.pageY + "px",
-            left: event.pageX + "px"
+			left: event.clientX + "px",
+			top: event.clientY + "px"
         }).show();
     });
 
@@ -31,7 +31,9 @@ function registerEvent() {
     context.querySelector(".new").addEventListener("mousedown", (event)=>{
         event.stopPropagation();
         event.preventDefault();
-        console.log("new");
+
+		$(".context-menu").hide();
+		createPostit(event.clientX, event.clientY);
     })
 
     context.querySelector(".sort").addEventListener("mousedown", (event)=>{
@@ -49,8 +51,6 @@ function registerEvent() {
 
 /**
  * 컨텍스트 메뉴 돔 생성 메소드
- * @param event
- * @returns {*|jQuery}
  */
 function createContextMenu() {
     let contextStr = `<div class="context-menu">
@@ -62,8 +62,21 @@ function createContextMenu() {
     $(contextStr).appendTo("body").hide()
 }
 
+/**
+ * 포스트잇 생성 메소드
+ * @param x
+ * @param y
+ */
+function createPostit(x, y) {
+	// 포스트잇 생성
+	let tmpl = `<div class="post-container">
+						<div class="header"></div>
+						<div class="content">
+							<textarea></textarea>
+						</div>
+					</div>`;
 
-
+	$(tmpl).appendTo("body").css({"left": x, "top": y});
+}
 
 initialize();
-
